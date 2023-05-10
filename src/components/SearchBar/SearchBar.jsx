@@ -1,16 +1,22 @@
+import { useContext } from "react";
+import { NotesContext } from "../../context/NotesContext";
 import { SearchBox } from "../SearchBox/SearchBox ";
 import { Header, ButtonsBlock } from "./SearchBar.styled";
 
 export const SearchBar = () => {
-  const handleAddNote = () => {};
-  const handleDeleteNote = () => {};
-  const handleEditNote = () => {};
+  const { currentNote, disabled, choseAdd, deleteNote, choseEdit } =
+    useContext(NotesContext);
+
   return (
     <Header>
       <ButtonsBlock>
-        <button onClick={handleAddNote}>add</button>
-        <button onClick={handleDeleteNote}>delete</button>
-        <button onClick={handleEditNote}>edit</button>
+        <button onClick={() => choseAdd()}>add</button>
+        <button disabled={disabled} onClick={() => deleteNote(currentNote.id)}>
+          delete
+        </button>
+        <button disabled={disabled} onClick={() => choseEdit()}>
+          edit
+        </button>
       </ButtonsBlock>
       <SearchBox />
     </Header>

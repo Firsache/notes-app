@@ -7,21 +7,37 @@ import { Workspace } from "../Workspace/Workspace";
 
 export function App() {
   const { searchedQuery, search } = useSearch();
-  const { notesList, currentNote, createNote, addNote, deleteNote, editNote } =
-    useNotes();
+  const {
+    notesList,
+    currentNote,
+    disabled,
+    choseNote,
+    editing,
+    choseEdit,
+    adding,
+    choseAdd,
+    addNote,
+    deleteNote,
+    editNote,
+  } = useNotes();
 
   return (
     <NotesContext.Provider
-      value={
-        (searchedQuery,
+      value={{
+        searchedQuery,
         search,
         notesList,
         currentNote,
-        createNote,
+        disabled,
+        choseNote,
+        editing,
+        choseEdit,
+        adding,
+        choseAdd,
         addNote,
         deleteNote,
-        editNote)
-      }
+        editNote,
+      }}
     >
       <div>
         <SearchBar />
