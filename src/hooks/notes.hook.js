@@ -43,6 +43,7 @@ export const useNotes = () => {
   const choseAdd = useCallback(() => {
     setAdding(!adding);
     setEditing(false);
+    setDisabled(true);
     setCurrentNote("");
   }, [adding]);
 
@@ -78,6 +79,7 @@ export const useNotes = () => {
     };
     trx.oncomplete = function () {
       setCurrentNote("");
+      setDisabled(true);
       setNotes();
     };
   }, []);
