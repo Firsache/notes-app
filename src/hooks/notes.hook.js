@@ -1,26 +1,30 @@
 import { useCallback, useState } from "react";
+import { request } from "../db";
 
 export const useNotes = () => {
-  const [notesList, setNotesList] = useState([
-    {
-      id: 1,
-      title: "First note",
-      message: "This is the note",
-      date: "08/09/2019",
-    },
-    {
-      id: 2,
-      title: "Wow",
-      message: "This is a wow note",
-      date: "11/29/2023",
-    },
-  ]);
+  const [notesList, setNotesList] = useState([]);
   const [currentNote, setCurrentNote] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
 
-  // const getNotes = ()=>{}
+  const getNotes = () => {
+    request.onsuccess = function () {
+      const db = request.result;
+      const transaction = db.transaction("notes", "readonly");
+
+      const store = transaction.objectStore("notes");
+      const getReq = store.getAll();
+
+      getReq.onsuccess = (ev) => {
+        let request = ev.target;
+        setNotesList(request.result);
+      };
+      getReq.onerror = (err) => {
+        console.warn(err);
+      };
+    };
+  };
   const choseNote = useCallback((note) => {
     setCurrentNote(note);
     setDisabled(false);
@@ -38,10 +42,25 @@ export const useNotes = () => {
 
   const addNote = useCallback(
     (note) => {
-      setNotesList([...notesList, note]);
-      choseAdd();
+      request.onsuccess = function () {
+        const db = request.result;
+        const transaction = db.transaction("notes", "readwrite");
+
+        const store = transaction.objectStore("notes");
+        const getReq = store.add(note);
+
+        getReq.onsuccess = (ev) => {
+          let request = ev.target;
+          console.log({ request });
+          getNotes();
+          choseAdd();
+        };
+        getReq.onerror = (err) => {
+          console.warn(err);
+        };
+      };
     },
-    [choseAdd, notesList]
+    [choseAdd]
   );
 
   const deleteNote = useCallback(
@@ -62,6 +81,7 @@ export const useNotes = () => {
   );
 
   return {
+    getNotes,
     notesList,
     currentNote,
     disabled,

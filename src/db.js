@@ -5,7 +5,7 @@ const indexedDB =
   window.msIndexedDB ||
   window.shimIndexedDB;
 
-let request = indexedDB.open("NotesDatabase", 1);
+export let request = indexedDB.open("NotesDatabase", 1);
 
 request.onerror = function (e) {
   console.error("Error", request.error);

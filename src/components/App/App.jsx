@@ -8,6 +8,7 @@ import { Workspace } from "../Workspace/Workspace";
 export function App() {
   const { searchedQuery, search } = useSearch();
   const {
+    getNotes,
     notesList,
     currentNote,
     disabled,
@@ -20,6 +21,8 @@ export function App() {
     deleteNote,
     editNote,
   } = useNotes();
+
+  getNotes();
 
   return (
     <NotesContext.Provider
