@@ -10,7 +10,7 @@ export const ListItem = ({ note }) => {
         choseNote(note);
       }}
     >
-      <h2>{title}</h2>
+      <h2>{title.length > 30 ? title.substr(0, 30) + "..." : title}</h2>
       <span>{date}</span>
       <span>{message}</span>
     </li>
