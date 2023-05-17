@@ -21,7 +21,7 @@ export const Workspace = () => {
       id: nanoid(10),
       title,
       message,
-      date: new Date(),
+      date: new Date().toLocaleString(),
     };
 
     addNote(newNote);
