@@ -1,17 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { NotesContext } from "../../context/NotesContext";
 
 export const Workspace = () => {
-  const { currentNote, choseNote, adding, editing, addNote, editNote } =
+  const { currentNote, adding, editing, addNote, editNote } =
     useContext(NotesContext);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleEditing = (e) => {
-    choseNote(e.target.value);
-    editNote(currentNote);
-  };
+  useEffect(() => {
+    setTitle(currentNote.title);
+    setMessage(currentNote.message);
+  }, [currentNote]);
 
   const handleAdditing = (e) => {
     e.preventDefault();
@@ -27,6 +27,20 @@ export const Workspace = () => {
     addNote(newNote);
     setTitle("");
     setMessage("");
+  };
+
+  const handleEditing = (e) => {
+    e.preventDefault();
+    if (!title || !message) return;
+
+    let updatedNote = {
+      id: currentNote.id,
+      title,
+      message,
+      date: new Date().toLocaleString(),
+    };
+    // console.log(updatedNote);
+    editNote(updatedNote);
   };
   return (
     <>
@@ -47,13 +61,22 @@ export const Workspace = () => {
           <button type="submit">Save</button>
         </form>
       )}
-      {editing && currentNote && (
-        <textarea
-          rows="8"
-          cols="15"
-          value={currentNote.message}
-          onChange={handleEditing}
-        />
+      {editing && (
+        <form onSubmit={handleEditing}>
+          <input
+            type="text"
+            value={title}
+            autoFocus
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            rows="8"
+            cols="15"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="submit">Save</button>
+        </form>
       )}
       {!adding && !editing && currentNote && (
         <>

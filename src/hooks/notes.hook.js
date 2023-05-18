@@ -43,6 +43,7 @@ export const useNotes = () => {
   const choseAdd = useCallback(() => {
     setAdding(!adding);
     setEditing(false);
+    setCurrentNote("");
   }, [adding]);
 
   const addNote = useCallback(
@@ -83,11 +84,22 @@ export const useNotes = () => {
 
   const editNote = useCallback(
     (note) => {
-      const newList = notesList.map((n) => (n.id === note.id ? note : n));
-      setNotesList(newList);
-      choseEdit();
+      const db = request.result;
+      const trx = db.transaction("notes", "readwrite");
+
+      const store = trx.objectStore("notes");
+      const getReq = store.put(note);
+      getReq.onsuccess = () => {};
+      getReq.onerror = (err) => {
+        console.warn(err);
+      };
+      trx.oncomplete = function () {
+        setNotes();
+        choseEdit();
+        setCurrentNote(note);
+      };
     },
-    [choseEdit, notesList]
+    [choseEdit]
   );
 
   return {
