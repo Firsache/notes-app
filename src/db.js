@@ -7,9 +7,8 @@ const indexedDB =
 
 let request = indexedDB.open("NotesDB", 1);
 
-request.onerror = function (e) {
+request.onerror = function () {
   console.error("Error", request.error);
-  console.error(e);
 };
 
 request.onupgradeneeded = function () {
