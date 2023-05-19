@@ -1,5 +1,5 @@
-// import styled from "styled-components";
+import styled from "styled-components";
 
-// export const Container = styled.div`
-//   margin: 0 4rem;
-// `;
+export const Main = styled.div`
+  display: flex;
+`;

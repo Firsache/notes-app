@@ -4,6 +4,7 @@ import { useSearch } from "../../hooks/search.hook";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Workspace } from "../Workspace/Workspace";
+import { Main } from "./App.styled";
 
 export function App() {
   const { searchedQuery, search } = useSearch();
@@ -44,10 +45,10 @@ export function App() {
     >
       <div>
         <SearchBar />
-        <div>
+        <Main>
           <Sidebar />
           <Workspace />
-        </div>
+        </Main>
       </div>
     </NotesContext.Provider>
   );

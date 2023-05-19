@@ -9,6 +9,7 @@ export const Header = styled.header`
 
   height: 50px;
   background-color: lightgray;
+  border-bottom: 2px solid #9f9c9c;
 `;
 
 export const ButtonsBlock = styled.div`
@@ -19,6 +20,8 @@ export const ButtonsBlock = styled.div`
     display: flex;
     justify-content: center;
     align-items: baseline;
+    border: 1px solid #9f9c9c;
+    border-radius: 2px;
 
     padding: 2px 14px;
   }
