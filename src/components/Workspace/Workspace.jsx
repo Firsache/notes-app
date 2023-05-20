@@ -5,6 +5,7 @@ import { NotesContext } from "../../context/NotesContext";
 export const Workspace = () => {
   const { currentNote, adding, editing, addNote, editNote } =
     useContext(NotesContext);
+
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
 
@@ -39,7 +40,6 @@ export const Workspace = () => {
       message,
       date: new Date().toLocaleString(),
     };
-    // console.log(updatedNote);
     editNote(updatedNote);
   };
   return (

@@ -6,6 +6,7 @@ export const useNotes = () => {
   const [currentNote, setCurrentNote] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [editing, setEditing] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [adding, setAdding] = useState(false);
 
   const getNotes = () => {
@@ -32,6 +33,7 @@ export const useNotes = () => {
 
   const choseNote = useCallback((note) => {
     setCurrentNote(note);
+    setAdding(false);
     setDisabled(false);
   }, []);
 
@@ -66,23 +68,31 @@ export const useNotes = () => {
     [choseAdd]
   );
 
-  const deleteNote = useCallback((noteId) => {
-    const db = request.result;
-    const trx = db.transaction("notes", "readwrite");
+  const modalDelete = useCallback(() => {
+    setModalOpen(!modalOpen);
+  }, [modalOpen]);
 
-    const notes = trx.objectStore("notes");
-    const getReq = notes.delete(noteId);
+  const deleteNote = useCallback(
+    (noteId) => {
+      const db = request.result;
+      const trx = db.transaction("notes", "readwrite");
 
-    getReq.onsuccess = (ev) => {};
-    getReq.onerror = (err) => {
-      console.warn(err);
-    };
-    trx.oncomplete = function () {
-      setCurrentNote("");
-      setDisabled(true);
-      setNotes();
-    };
-  }, []);
+      const notes = trx.objectStore("notes");
+      const getReq = notes.delete(noteId);
+
+      getReq.onsuccess = (ev) => {};
+      getReq.onerror = (err) => {
+        console.warn(err);
+      };
+      trx.oncomplete = function () {
+        setCurrentNote("");
+        modalDelete();
+        setDisabled(true);
+        setNotes();
+      };
+    },
+    [modalDelete]
+  );
 
   const editNote = useCallback(
     (note) => {
@@ -115,6 +125,8 @@ export const useNotes = () => {
     adding,
     choseAdd,
     addNote,
+    modalDelete,
+    modalOpen,
     deleteNote,
     editNote,
   };

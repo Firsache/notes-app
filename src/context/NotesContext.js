@@ -13,6 +13,8 @@ export const NotesContext = createContext({
   adding: false,
   choseAdd: noop,
   addNote: noop,
+  modalDelete: noop,
+  modalOpen: false,
   deleteNote: noop,
   editNote: noop,
 });

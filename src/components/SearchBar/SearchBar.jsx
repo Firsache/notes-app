@@ -6,7 +6,7 @@ import { Header, ButtonsBlock } from "./SearchBar.styled";
 
 //
 export const SearchBar = () => {
-  const { currentNote, disabled, choseAdd, deleteNote, choseEdit } =
+  const { disabled, choseAdd, modalDelete, choseEdit } =
     useContext(NotesContext);
 
   return (
@@ -15,7 +15,7 @@ export const SearchBar = () => {
         <button onClick={() => choseAdd()}>
           <AiOutlinePlus size="16px" />
         </button>
-        <button disabled={disabled} onClick={() => deleteNote(currentNote.id)}>
+        <button disabled={disabled} onClick={() => modalDelete()}>
           <AiOutlineDelete size="16px" />
         </button>
         <button disabled={disabled} onClick={() => choseEdit()}>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   flex-basis: 30%;
   min-width: 200px;
-  height: 100vh;
+  height: calc(100vh - 50px);
 
   overflow-y: scroll;
   scroll-behavior: smooth;
