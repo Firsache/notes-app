@@ -1,8 +1,10 @@
 import { useContext } from "react";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
 import { NotesContext } from "../../context/NotesContext";
 import { SearchBox } from "../SearchBox/SearchBox ";
 import { Header, ButtonsBlock } from "./SearchBar.styled";
 
+//
 export const SearchBar = () => {
   const { currentNote, disabled, choseAdd, deleteNote, choseEdit } =
     useContext(NotesContext);
@@ -10,12 +12,14 @@ export const SearchBar = () => {
   return (
     <Header>
       <ButtonsBlock>
-        <button onClick={() => choseAdd()}>add</button>
+        <button onClick={() => choseAdd()}>
+          <AiOutlinePlus size="16px" />
+        </button>
         <button disabled={disabled} onClick={() => deleteNote(currentNote.id)}>
-          delete
+          <AiOutlineDelete size="16px" />
         </button>
         <button disabled={disabled} onClick={() => choseEdit()}>
-          edit
+          <AiOutlineEdit size="16px" />
         </button>
       </ButtonsBlock>
       <SearchBox />

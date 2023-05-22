@@ -1,3 +1,5 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const Main = styled.div``;
+// export const Container = styled.div`
+//   margin: 0 4rem;
+// `;

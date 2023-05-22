@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { NotesContext } from "../../context/NotesContext";
+import { AiOutlineSearch } from "react-icons/ai";
+import { Label, Input } from "./SearchBox.styled";
 
 export const SearchBox = () => {
   const { searchedQuery, search } = useContext(NotesContext);
@@ -8,8 +10,14 @@ export const SearchBox = () => {
     search(e.target.value);
   };
   return (
-    <>
-      <input
+    <Label>
+      {!searchedQuery && (
+        <span>
+          <AiOutlineSearch />
+        </span>
+      )}
+
+      <Input
         type="text"
         autoComplete="off"
         autoFocus
@@ -18,6 +26,6 @@ export const SearchBox = () => {
         value={searchedQuery}
         onChange={handleInputChange}
       />
-    </>
+    </Label>
   );
 };
