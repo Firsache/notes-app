@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   flex-basis: 30%;
-  min-width: 200px;
+  min-width: 240px;
   height: calc(100vh - 50px);
 
   overflow-y: scroll;
@@ -21,15 +21,9 @@ export const Container = styled.div`
     border-radius: 10px;
   }
 `;
+
 export const List = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-
-  h2 {
-    padding: 0;
-    margin: 0;
-
-    font-size: 16px;
-  }
 `;

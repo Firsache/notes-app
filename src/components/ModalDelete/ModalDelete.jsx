@@ -36,7 +36,7 @@ export const ModalDelete = () => {
   return createPortal(
     <Backdrop onClick={handleBackdropClick}>
       <Modal onKeyDown={handleEscapeClick}>
-        Would you like to delete the note <span>{currentNote.title}</span> ?
+        You are going to delete the note <span>{currentNote.title}...</span>
         <ModalButtons>
           <button className="submit" onClick={() => deleteNote(currentNote.id)}>
             Submit

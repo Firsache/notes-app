@@ -20,7 +20,7 @@ export const Input = styled.input`
 
   :focus,
   :active {
-    border-color: #9f9c9c;
+    outline-color: #9f9c9c;
   }
   ::placeholder {
     padding-left: 50px;

@@ -57,6 +57,12 @@ export const ModalButtons = styled.div`
     padding: 5px 14px;
     border: none;
     border-radius: 2px;
+
+    transition: transform ease-in-out;
+
+    :hover {
+      transform: scale(1.1);
+    }
   }
   .submit {
     background-color: #3cb371;

@@ -24,5 +24,11 @@ export const ButtonsBlock = styled.div`
     border-radius: 2px;
 
     padding: 2px 14px;
+
+    transition: transform ease-in-out;
+
+    :hover {
+      transform: scale(1.1);
+    }
   }
 `;

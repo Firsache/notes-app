@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { NotesContext } from "../../context/NotesContext";
+import { Form, Message, Wrapper } from "./Workspace.styled";
+import { MdDownloadDone } from "react-icons/md";
 
 export const Workspace = () => {
   const { currentNote, adding, editing, addNote, editNote } =
@@ -22,7 +24,7 @@ export const Workspace = () => {
       id: nanoid(10),
       title,
       message,
-      date: new Date().toLocaleString(),
+      date: new Date().toString(),
     };
 
     addNote(newNote);
@@ -38,16 +40,26 @@ export const Workspace = () => {
       id: currentNote.id,
       title,
       message,
-      date: new Date().toLocaleString(),
+      date: new Date().toString(),
     };
     editNote(updatedNote);
   };
+
+  const d = new Date(currentNote?.date).toDateString().split(" ");
+  const getDate = [d[1], `${d[2]},`, d[3]].join(" ");
+  const getTime = new Date(currentNote?.date).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
   return (
     <>
       {adding && (
-        <form onSubmit={handleAdditing}>
+        <Form onSubmit={handleAdditing}>
           <input
             type="text"
+            maxlength="50"
             placeholder="Type to add a note title"
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
@@ -58,13 +70,16 @@ export const Workspace = () => {
             placeholder="Type to add a note message"
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button type="submit">Save</button>
-        </form>
+          <button type="submit">
+            <MdDownloadDone size="20px" />
+          </button>
+        </Form>
       )}
       {editing && (
-        <form onSubmit={handleEditing}>
+        <Form onSubmit={handleEditing}>
           <input
             type="text"
+            maxlength="50"
             value={title}
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
@@ -75,15 +90,19 @@ export const Workspace = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button type="submit">Save</button>
-        </form>
+          <button type="submit">
+            <MdDownloadDone size="20px" />
+          </button>
+        </Form>
       )}
       {!adding && !editing && currentNote && (
-        <>
-          <h3>{currentNote.date}</h3>
-          <p>{currentNote.title}</p>
-          <p>{currentNote.message}</p>
-        </>
+        <Wrapper>
+          <h3>{`${getDate} at ${getTime}`}</h3>
+          <Message>
+            <p>{currentNote.title}</p>
+            <p>{currentNote.message}</p>
+          </Message>
+        </Wrapper>
       )}
     </>
   );
